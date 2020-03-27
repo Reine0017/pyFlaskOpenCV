@@ -1,44 +1,3 @@
-'''
-# Import required packages:
-import cv2
-from flask import Flask, request, make_response
-import numpy as np
-import urllib.request
-
-app = Flask(__name__)
-
-
-@app.route('/canny', methods=['GET'])
-def canny_processing():
-    # Get the image:
-	with urllib.request.urlopen(request.args.get('url')) as url:
-		image_array = np.asarray(bytearray(url.read()), dtype=np.uint8)
-
-	# Convert the image to OpenCV format:
-	img_opencv = cv2.imdecode(image_array, -1)
-
-	# Convert image to grayscale:
-	gray = cv2.cvtColor(img_opencv, cv2.COLOR_BGR2GRAY)
-
-	# Perform canny edge detection:
-	edges = cv2.Canny(gray, 100, 200)
-
-	# Compress the image and store it in the memory buffer:
-	retval, buffer = cv2.imencode('.jpg', edges)
-
-	# Build the response:
-	response = make_response(buffer.tobytes())
-	response.headers['Content-Type'] = 'image/jpeg'
-
-	    # Return the response:
-	return response
-
-
-if __name__ == "__main__":
-	# Add parameter host='0.0.0.0' to run on your machines IP address:
-	app.run(host='0.0.0.0', debug=True)
-
-'''
 # Import required packages:
 import cv2
 from flask import Flask, request, render_template, send_from_directory, redirect
@@ -67,26 +26,26 @@ def upload():
 		print("file", file)
 		filename = file.filename
 		print("filename", filename)
-		destination = "/".join([target, filename])
+		destination = "".join([target, filename])
 		print("destination", destination)
 		file.save(destination)
-		#prints - birthday-party.png (e.g.)
-		print("!!!!!!!!filename", filename)
 
 	return render_template("complete.html", image_name=filename)
 
+# in this function send_image will HAVE to take in the parameter name <filename>
+@app.route('/complete/<filename1>')
+def send_original_image(filename1):
+	return send_from_directory("images", filename1)
+
 @app.route('/upload/<filename>')
-def send_image(filename):
-	print("!!!!!!!!!!!!!!!!")
-	print("!!!!!filename",filename)
+def send_processed_image(filename):
+	print("@@@@@@@@###########")
+	print("TEST SCRIPT CALLED")
 	directoryName = os.path.join(APP_ROOT, 'images/')
 
 	newImg = test.printTest(directoryName, filename)
 	print(newImg)
-	#newImg = test.printTest(fullpath)
-	#return send_from_directory("images",newImg)
-	return send_from_directory("images",newImg)
-
+	return send_from_directory("images", newImg)
 
 
 #good practise to have this: this means this will only run if its run directly (and not called from somewhere else)

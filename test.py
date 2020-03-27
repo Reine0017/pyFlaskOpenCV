@@ -6,7 +6,8 @@ def printTest(directoryName, filename):
 	newImg = cv2.imread(directoryName+filename)
 	gray = cv2.cvtColor(newImg, cv2.COLOR_BGR2GRAY)
 	filename, file_extension = os.path.splitext(filename)
-	newFileName = 'processedImg' + file_extension
+	print(filename)
+	newFileName = 'processedImg'+ '_' + filename + file_extension
 	print(newFileName)
 	cv2.imwrite(directoryName+newFileName, gray)
 

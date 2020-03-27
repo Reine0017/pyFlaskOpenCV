@@ -6,6 +6,8 @@
 </head>
 <body>
 	Upload complete!
-	<img src="{{url_for('send_image', filename=image_name)}}">
+	<img src="{{url_for('send_processed_image', filename=image_name)}}">
+	<img src="{{url_for('send_original_image', filename1=image_name)}}">
+</body>
 </body>
 </html>
