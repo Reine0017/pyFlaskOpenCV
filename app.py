@@ -22,6 +22,8 @@ def upload():
 	else:
 		print("Couldn't create upload directory: {}".format(target))
 
+	myFiles = []
+
 	for file in request.files.getlist("file"):
 		print("file", file)
 		filename = file.filename
@@ -29,8 +31,10 @@ def upload():
 		destination = "".join([target, filename])
 		print("destination", destination)
 		file.save(destination)
+		myFiles.append(filename)
+	print(myFiles)
 
-	return render_template("complete.html", image_name=filename)
+	return render_template("complete.html", image_names=myFiles)
 
 # in this function send_image will HAVE to take in the parameter name <filename>
 @app.route('/complete/<filename1>')
