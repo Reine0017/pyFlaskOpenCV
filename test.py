@@ -1,5 +1,6 @@
 import cv2
 import os 
+import imutils
 
 def printTest(directoryName, filename):
 	print("test script called")

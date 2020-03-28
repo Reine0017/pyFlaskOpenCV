@@ -1,8 +1,10 @@
 # Import required packages:
 import cv2
-from flask import Flask, request, render_template, send_from_directory, redirect
+from flask import Flask, request, render_template, send_from_directory, redirect, send_file
 import os
 import test
+import neuralStyleProcess
+import time
 
 app = Flask(__name__)
 
@@ -47,9 +49,14 @@ def send_processed_image(filename):
 	print("TEST SCRIPT CALLED")
 	directoryName = os.path.join(APP_ROOT, 'images/')
 
-	newImg = test.printTest(directoryName, filename)
+	#newImg = test.printTest(directoryName, filename)
+	newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename)
+	print(filename)
+	time.sleep(3)
+
 	print(newImg)
 	return send_from_directory("images", newImg)
+	#return send_file(directoryName+newImg, as_attachment=True)
 
 
 #good practise to have this: this means this will only run if its run directly (and not called from somewhere else)
