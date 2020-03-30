@@ -6,15 +6,13 @@
 </head>
 <body>
 	Upload complete!
-	<div>
-		<img src="{{url_for('send_processed_image', filename=image_names[0])}}">
-		<img src="{{url_for('send_original_image', filename1=image_names[0])}}">
-	</div>
 	
-	<div>
-		<img src="{{url_for('send_processed_image', filename=image_names[1])}}">
-		<img src="{{url_for('send_original_image', filename1=image_names[1])}}">
-	</div>
+	{% for image_name in image_names %}
+		<div>
+			<img src="{{url_for('send_processed_image', filename=image_name)}}">
+			<img src="{{url_for('send_original_image', filename=image_name)}}">
+		</div>
+	{% endfor %}
 
 </body>
 </body>

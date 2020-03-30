@@ -39,11 +39,12 @@ def upload():
 	return render_template("complete.html", image_names=myFiles)
 
 # in this function send_image will HAVE to take in the parameter name <filename>
-@app.route('/complete/<filename1>')
-def send_original_image(filename1):
-	return send_from_directory("images", filename1)
-
 @app.route('/upload/<filename>')
+def send_original_image(filename):
+	return send_from_directory("images", filename)
+
+# this app route cant be the same as above
+@app.route('/complete/<filename>')
 def send_processed_image(filename):
 	print("@@@@@@@@###########")
 	print("TEST SCRIPT CALLED")
@@ -52,7 +53,6 @@ def send_processed_image(filename):
 	#newImg = test.printTest(directoryName, filename)
 	newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename)
 	print(filename)
-	time.sleep(3)
 
 	print(newImg)
 	return send_from_directory("images", newImg)

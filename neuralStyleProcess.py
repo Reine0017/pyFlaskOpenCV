@@ -13,7 +13,7 @@ def neuralStyleTransfer(directoryName, filename):
 	print("[INFO] loading style transfer model...")
 	target = os.path.join(APP_ROOT, 'static/models/')
 	print("neuralStyleTransfer target", target)
-	net = cv2.dnn.readNetFromTorch(target + 'triangle_style_1000.t7')
+	net = cv2.dnn.readNetFromTorch(target + 'pink_style_1800.t7')
 
 	# load the input image, resize it to have a width of 600 pixels, and
 	# then grab the image dimensions
@@ -59,6 +59,7 @@ def neuralStyleTransfer(directoryName, filename):
 	print(newFileName)
 	print(directoryName)
 	
+	#needs normalization because imread
 	output_normed = 255 * (output - output.min()) / (output.max() - output.min())
 	np.array(output_normed, np.int)
 
