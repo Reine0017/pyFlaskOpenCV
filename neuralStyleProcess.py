@@ -8,6 +8,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 def neuralStyleTransfer(directoryName, filename, selected_style):
 	print("style transfer script called")
 
+	# Neural style transfer codes adapted from pyimageSearch
 
 	# load the neural style transfer model from disk
 	print("[INFO] loading style transfer model...")
@@ -37,36 +38,20 @@ def neuralStyleTransfer(directoryName, filename, selected_style):
 	output[0] += 103.939
 	output[1] += 116.779
 	output[2] += 123.680
-	output /= 255.0
 	output = output.transpose(1, 2, 0)
-
 	
-	# show information on how long inference took
-	#print("[INFO] neural style transfer took {:.4f} seconds".format(
-	#	end - start))
-		
-	'''
-	# show the images
-	cv2.imshow("Input", image)
-	cv2.imshow("Output", output)
-	cv2.waitKey(0)
-	'''
-	
-
 	filename, file_extension = os.path.splitext(filename)
 	print(filename)
 	newFileName = 'processedImg'+ '_' + filename + file_extension
 	print(newFileName)
 	print(directoryName)
-	
-	#needs normalization because imread
-	output_normed = 255 * (output - output.min()) / (output.max() - output.min())
-	np.array(output_normed, np.int)
 
-	cv2.imwrite(directoryName+newFileName, output_normed)
-	print(cv2.imwrite(directoryName+newFileName, output_normed))
+	cv2.imwrite(directoryName+newFileName, output)
+	#print(cv2.imwrite(directoryName+newFileName, output))
 
 	return newFileName
 
 if __name__=='__main__':
-	neuralStyleTransfer('/Users/fangran/Documents/pyFlaskCV/images/', 'bbq.jpg')
+	neuralStyleTransfer('/Users/fangran/Documents/pyFlaskCV/images/', 'bbq.jpg', 'gold_black_2700.t7')
+
+
