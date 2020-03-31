@@ -1,5 +1,4 @@
 # Import required packages:
-import cv2
 from flask import Flask, request, render_template, send_from_directory, redirect, send_file
 import os
 import test
@@ -7,6 +6,9 @@ import neuralStyleProcess
 import time
 
 app = Flask(__name__)
+
+#do function that checks for uploaded file types (extensions).
+#https://stackoverflow.com/questions/41105700/how-can-i-restrict-the-file-types-a-user-can-upload-to-my-form
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,6 +26,9 @@ def upload():
 	else:
 		print("Couldn't create upload directory: {}".format(target))
 
+	data = request.form.get("style")
+	print(data)
+
 	myFiles = []
 
 	for file in request.files.getlist("file"):
@@ -36,7 +41,8 @@ def upload():
 		myFiles.append(filename)
 	print(myFiles)
 
-	return render_template("complete.html", image_names=myFiles)
+	#return render_template("complete.html", image_names=myFiles)
+	return render_template("complete.html", image_names=myFiles, selected_style=data)
 
 # in this function send_image will HAVE to take in the parameter name <filename>
 @app.route('/upload/<filename>')
@@ -44,19 +50,21 @@ def send_original_image(filename):
 	return send_from_directory("images", filename)
 
 # this app route cant be the same as above
-@app.route('/complete/<filename>')
-def send_processed_image(filename):
+#@app.route('/complete/<filename>')
+#def send_processed_image(filename):
+@app.route('/complete/<filename>/<selected_style>')
+def send_processed_image(filename, selected_style):
 	print("@@@@@@@@###########")
 	print("TEST SCRIPT CALLED")
 	directoryName = os.path.join(APP_ROOT, 'images/')
 
-	#newImg = test.printTest(directoryName, filename)
-	newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename)
+	#newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename)
+	#selected_style = 'pink_style_1800.t7'
+	newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename, selected_style)
 	print(filename)
 
 	print(newImg)
 	return send_from_directory("images", newImg)
-	#return send_file(directoryName+newImg, as_attachment=True)
 
 
 #good practise to have this: this means this will only run if its run directly (and not called from somewhere else)

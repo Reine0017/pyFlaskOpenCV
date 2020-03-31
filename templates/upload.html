@@ -5,9 +5,21 @@
 	<title>Upload</title>
 </head>
 <body>
-	<h1>File Uploader</h1>
+	<h1>Upload your image(s) and select a style</h1>
 	<form id="upload-form" action="{{url_for('upload')}}" method= "POST" enctype="multipart/form-data">
 		<input type="file" name="file" accept="image/*" multiple>
 		<input type="submit" value="Upload">
+		<br>
+
+		<div>
+			<label for="style">Choose an image style:</label>
+			<select id="style" name="style">
+				<option value="Fire_Style_22000_Iterations.t7">Fire Style</option>
+				<option value="gold_black_2700.t7">Gold Black Style</option>
+				<option value="pink_style_1800.t7">Pink Style</option>
+				<option value="triangle_style_1000.t7">Triangle Style</option>
+	  		</select>
+		</div>
+		
 </body>
 </html>

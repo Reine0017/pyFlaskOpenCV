@@ -9,7 +9,7 @@
 	
 	{% for image_name in image_names %}
 		<div>
-			<img src="{{url_for('send_processed_image', filename=image_name)}}">
+			<img src="{{url_for('send_processed_image', filename=image_name, selected_style=selected_style)}}">
 			<img src="{{url_for('send_original_image', filename=image_name)}}">
 		</div>
 	{% endfor %}
