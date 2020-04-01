@@ -28,9 +28,7 @@ def neuralStyleTransfer(directoryName, filename, selected_style):
 		(103.939, 116.779, 123.680), swapRB=False, crop=False)
 	net.setInput(blob)
 
-	#start = time.time()
 	output = net.forward()
-	#end = time.time()
 
 	# reshape the output tensor, add back in the mean subtraction, and
 	# then swap the channel ordering
@@ -47,7 +45,6 @@ def neuralStyleTransfer(directoryName, filename, selected_style):
 	print(directoryName)
 
 	cv2.imwrite(directoryName+newFileName, output)
-	#print(cv2.imwrite(directoryName+newFileName, output))
 
 	return newFileName
 
