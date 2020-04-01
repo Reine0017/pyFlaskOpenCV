@@ -66,6 +66,6 @@ def send_processed_image(filename, selected_style):
 if __name__ == "__main__":
 	#remove debug and host when hosting to cloud
 	# Add parameter host='0.0.0.0' to run on your machines IP address:
-	app.run(host='0.0.0.0', debug=True)
+	app.run(host='0.0.0.0')
 
 
