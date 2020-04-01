@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, send_from_directory, redirect
 import os
 import test
 import neuralStyleProcess
-import time
+import cv2
 
 app = Flask(__name__)
 
