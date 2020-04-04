@@ -36,19 +36,30 @@ def neuralStyleTransfer(directoryName, filename, selected_style):
 	output[0] += 103.939
 	output[1] += 116.779
 	output[2] += 123.680
+	#uncomment this for imshow etc to display (if running as a script)
+	#output /= 255.0
 	output = output.transpose(1, 2, 0)
+
+	#cv2.imshow('image',output)
+	#cv2.waitKey(0)
+	#cv2.destroyAllWindows()
 	
+	#output = (output * 255).astype(np.uint8)
+
 	filename, file_extension = os.path.splitext(filename)
 	print(filename)
 	newFileName = 'processedImg'+ '_' + filename + file_extension
+	cv2.imwrite(directoryName + newFileName, output)
 	print(newFileName)
 	print(directoryName)
-
-	cv2.imwrite(directoryName+newFileName, output)
 
 	return newFileName
 
 if __name__=='__main__':
+	#swapT with output/=255 doesnt work
+	#swapT without output/=255 doesnt look nice
+	#swapF with output/=255 doesnt work
+	#swapF without output/=255 looks best
 	neuralStyleTransfer('/Users/fangran/Documents/pyFlaskCV/images/', 'bbq.jpg', 'gold_black_2700.t7')
 
 
