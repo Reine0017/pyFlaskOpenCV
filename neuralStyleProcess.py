@@ -6,14 +6,11 @@ import numpy as np
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 def neuralStyleTransfer(directoryName, filename, selected_style):
-	print("style transfer script called")
 
 	# Neural style transfer codes adapted from pyimageSearch
 
 	# load the neural style transfer model from disk
-	print("[INFO] loading style transfer model...")
 	target = os.path.join(APP_ROOT, 'static/models/')
-	print("neuralStyleTransfer target", target)
 	net = cv2.dnn.readNetFromTorch(target + selected_style)
 
 	# load the input image, resize it to have a width of 600 pixels, and
