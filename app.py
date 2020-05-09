@@ -51,8 +51,6 @@ def send_original_image(filename):
 # this app route cant be the same as above
 @app.route('/complete/<filename>/<selected_style>')
 def send_processed_image(filename, selected_style):
-	print("@@@@@@@@###########")
-	print("TEST SCRIPT CALLED")
 	directoryName = os.path.join(APP_ROOT, 'images/')
 
 	newImg = neuralStyleProcess.neuralStyleTransfer(directoryName, filename, selected_style)
